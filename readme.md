@@ -228,71 +228,89 @@ classDiagram
 
 El proyecto sigue una arquitectura hexagonal (también conocida como puertos y adaptadores) para mantener el dominio de negocio aislado de las dependencias externas. La estructura de ficheros refleja esta separación de responsabilidades:
 
+```
 story-refinement-assistant/
-├── .env.example # Template para variables de entorno
+├── .env.example                  # Template para variables de entorno
 ├── .gitignore
 ├── Dockerfile
 ├── README.md
 ├── docker-compose.yml
-├── pyproject.toml # Configuración de Poetry
-├── docs/ # Documentación del proyecto
-│ ├── api/ # Documentación de la API
-│ ├── guides/ # Guías de usuario
-│ └── technical/ # Documentación técnica
-├── scripts/ # Scripts de utilidad
-│ ├── setup.sh # Configuración inicial
-│ └── test.sh # Ejecución de tests
-├── src/ # Código fuente principal
-│ ├── init.py
-│ ├── main.py # Punto de entrada de FastAPI
-│ ├── config/ # Configuración de la aplicación
-│ │ ├── init.py
-│ │ └── settings.py
-│ ├── api/ # Capa de API (Adaptador primario)
-│ │ ├── init.py
-│ │ ├── routes/ # Endpoints de la API
-│ │ │ ├── init.py
-│ │ │ ├── story.py
-│ │ │ └── workflow.py
-│ │ └── dependencies.py
-│ ├── core/ # Lógica de negocio (Dominio)
-│ │ ├── init.py
-│ │ ├── workflow/ # Gestión del flujo de refinamiento
-│ │ │ ├── init.py
-│ │ │ ├── manager.py
-│ │ │ └── steps/
-│ │ └── assistant.py
-│ ├── llm/ # Servicios LLM (Adaptador secundario)
-│ │ ├── init.py
-│ │ ├── service.py
-│ │ └── prompts/ # Templates de prompts
-│ ├── rag/ # Servicios RAG (Adaptador secundario)
-│ │ ├── init.py
-│ │ ├── service.py
-│ │ └── indexing.py
-│ ├── integrations/ # Integraciones externas (Adaptadores secundarios)
-│ │ ├── init.py
-│ │ ├── jira/
-│ │ ├── confluence/
-│ │ └── github/
-│ ├── models/ # Modelos de datos
-│ │ ├── init.py
-│ │ ├── story.py
-│ │ └── workflow.py
-│ └── utils/ # Utilidades comunes
-│ ├── init.py
-│ ├── logging.py
-│ └── helpers.py
-├── tests/ # Tests del proyecto
-│ ├── init.py
-│ ├── conftest.py # Configuración de pytest
-│ ├── unit/ # Tests unitarios
-│ ├── integration/ # Tests de integración
-│ └── e2e/ # Tests end-to-end
-└── requirements/ # Dependencias del proyecto
-├── base.txt
-├── dev.txt
-└── prod.txt
+├── pyproject.toml               # Configuración de Poetry
+├── docs/
+│   ├── api/                    # Documentación de la API
+│   ├── guides/                 # Guías de usuario
+│   └── technical/             # Documentación técnica
+├── scripts/
+│   ├── setup.sh               # Scripts de configuración
+│   └── test.sh               # Scripts de testing
+├── src/
+│   ├── __init__.py
+│   ├── main.py               # Punto de entrada de FastAPI
+│   ├── config/
+│   │   ├── __init__.py
+│   │   └── settings.py      # Configuración de la aplicación
+│   ├── api/
+│   │   ├── __init__.py
+│   │   ├── routes/
+│   │   │   ├── __init__.py
+│   │   │   ├── story.py    # Endpoints de historias
+│   │   │   └── workflow.py # Endpoints de workflow
+│   │   └── dependencies.py
+│   ├── core/
+│   │   ├── __init__.py
+│   │   ├── workflow/
+│   │   │   ├── __init__.py
+│   │   │   ├── manager.py
+│   │   │   └── steps/
+│   │   │       ├── __init__.py
+│   │   │       ├── refinement.py
+│   │   │       ├── corner_case.py
+│   │   │       └── testing.py
+│   │   └── assistant.py
+│   ├── llm/
+│   │   ├── __init__.py
+│   │   ├── service.py      # Servicio LLM principal
+│   │   └── prompts/       # Templates de prompts
+│   │       ├── __init__.py
+│   │       ├── refinement.py
+│   │       ├── corner_case.py
+│   │       └── testing.py
+│   ├── rag/
+│   │   ├── __init__.py
+│   │   ├── service.py     # Servicio RAG principal
+│   │   └── indexing.py    # Gestión de índices
+│   ├── integrations/
+│   │   ├── __init__.py
+│   │   ├── jira/
+│   │   │   ├── __init__.py
+│   │   │   └── client.py
+│   │   ├── confluence/
+│   │   │   ├── __init__.py
+│   │   │   └── client.py
+│   │   └── github/
+│   │       ├── __init__.py
+│   │       └── client.py
+│   ├── models/
+│   │   ├── __init__.py
+│   │   ├── story.py      # Modelos de datos
+│   │   └── workflow.py
+│   └── utils/
+│       ├── __init__.py
+│       ├── logging.py
+│       └── helpers.py
+├── tests/
+│   ├── __init__.py
+│   ├── conftest.py       # Configuración de pytest
+│   ├── unit/
+│   │   ├── __init__.py
+│   │   ├── test_workflow.py
+│   │   └── test_rag.py
+│   └── integration/
+│       ├── __init__.py
+│       └── test_api.py
+└── data/
+    └── vector_store/     # Almacenamiento de índices
+```
 
 #### Descripción de Carpetas Principales:
 
