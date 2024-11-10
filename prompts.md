@@ -2827,7 +2827,745 @@ Estos tickets técnicos cubren las necesidades de implementación del MVP, mante
 ### 7. Pull Requests
 
 **Prompt 1:**
+(Nueva sesión el 10 de noviembre para actualizar a una POC en lugar de un MVP. Utilicé Cursor con o1-mini)
+
+Anteriormente estuve pidiendote un PRD para un asistente de refinamiento de historias de usuario. Quisiera una versión más reducida para una prueba de concepto. 
+Tengo un ordenador que debería ser capaz de levantar modelos llm de tamaño medio, ya que tengo una rtx 4090 de tarjeta gráfica, con un procesador amd 7800x3d y 64 gigas de ddr5. Así que estaba pensando en correr inicialmente la poc en mi máquina.
+Para la poc estaba pensando en utilizar el nuevo modelo llama 3.2:11b, ya que tiene la capacidad de visión que podría ser útil para el asistente y mi ordenador debería ser capaz de levantarlo y correrlo sin problemas.
+También estaba pensando en utilizar LangChain con Langflow para la interfaz gráfica, ya que he leido que con estos frameworks es fácil de montar y es ideal para pruebas de concepto de estos sistemas.
+Por favor, dame una nueva versión del prd para la poc que estoy describiendo.
+
+**Answer 1:**
+
+# PRD: Asistente de Refinamiento de Historias de Usuario - Prueba de Concepto
+
+## 1. Objetivo
+
+Desarrollar una Prueba de Concepto (POC) para validar la viabilidad del **Asistente de Refinamiento de Historias de Usuario** utilizando un modelo LLM con capacidades de visión, aprovechando los recursos locales del desarrollador.
+
+## 2. Alcance
+
+La POC se centrará en:
+
+- Implementación de un flujo de refinamiento básico de historias de usuario en tres pasos.
+- Integración con un modelo LLM local (**Llama 3.2:11b**) con capacidades de visión.
+- Desarrollo de una interfaz gráfica sencilla utilizando **LangFlow**.
+- Evaluación de la efectividad del modelo y la facilidad de uso de la interfaz.
+
+**Fuera del Alcance:**
+
+- Integraciones con sistemas externos como Jira, Confluence o GitHub.
+- Funcionalidades avanzadas de gestión de estado y persistencia.
+- Despliegue en entornos de producción o en la nube.
+
+## 3. Características y Funcionalidades
+
+### 3.1. Proceso de Refinamiento
+
+Implementar un flujo de trabajo en tres pasos secuenciales, cada uno requiriendo confirmación del usuario para avanzar:
+
+1. **Mejora de Definición**
+   - Refinar la descripción de la historia de usuario.
+   - Sugerencias para mejorar la claridad y completitud.
+
+2. **Identificación de Casos Esquinas**
+   - Identificar posibles escenarios límite o riesgos.
+   - Documentar casos de prueba adicionales.
+
+3. **Estrategia de Testing**
+   - Proponer estrategias de pruebas basadas en la historia refinada.
+   - Recomendaciones de tipos de tests necesarios.
+
+### 3.2. Integración con Modelo LLM
+
+- **Modelo Utilizado**: Llama 3.2:11b con capacidades de visión.
+- **Ejecución Local**: Aprovechar la potencia de la máquina local (RTX 4090, AMD 7800X3D, 64GB DDR5) para correr el modelo sin problemas.
+- **Framework**: Utilizar **LangChain** para gestionar la interacción con el modelo LLM.
+
+### 3.3. Interfaz Gráfica
+
+- **Herramienta**: **LangFlow**
+- **Características**:
+  - Interfaz intuitiva para ingresar y visualizar historias de usuario.
+  - Visualización de las recomendaciones generadas por el asistente.
+  - Facilitar iteraciones rápidas durante la POC.
+
+## 4. Stack Tecnológico
+
+- **Lenguaje de Programación**: Python 3.11
+- **LLM**: Llama 3.2:11b (ejecutado localmente)
+- **Frameworks**:
+  - **LangChain**: Gestión de flujos de trabajo y prompts.
+  - **LangFlow**: Desarrollo de la interfaz gráfica.
+- **Entorno de Desarrollo**:
+  - **Poetry**: Gestión de dependencias y entornos virtuales.
+- **Herramientas Adicionales**:
+  - **Docker**: (Opcional) Contenedorización para aislar el entorno de ejecución.
+
+## 5. Infraestructura y Despliegue
+
+### 5.1. Configuración del Entorno Local
+
+- **Hardware**:
+  - **GPU**: NVIDIA RTX 4090
+  - **CPU**: AMD Ryzen 7 7800X3D
+  - **Memoria**: 64GB DDR5
+- **Software**:
+  - **Sistema Operativo**: Preferiblemente Linux para mejor compatibilidad.
+  - **Docker**: Instalación opcional para contenedorización.
+  - **Poetry**: Instalación para gestión de dependencias.
+  - **LangChain & LangFlow**: Instalación a través de Poetry.
+
+### 5.2. Instalación y Configuración
+
+1. **Clonar el Repositorio**
+    ```bash
+    git clone https://github.com/rgarciademarina/AI4Devs-finalproject-RGM.git
+    cd AI4Devs-finalproject-RGM
+    ```
+
+2. **Configurar el Entorno Virtual**
+    ```bash
+    poetry install
+    poetry shell
+    ```
+
+3. **Ejecutar el Modelo LLM Localmente**
+    ```bash
+    # Asumiendo que tienes los pesos del modelo descargados
+    python src/llm/run_model.py --model llama-3.2-11b
+    ```
+
+4. **Desarrollar la Interfaz con LangFlow**
+    ```bash
+    langflow run src/ui/app.py
+    ```
+
+## 6. Métricas de Éxito
+
+- **Funcionalidad**: El asistente puede procesar historias de usuario y proporcionar mejoras, identificar casos esquina y sugerir estrategias de testing.
+- **Rendimiento**: Respuestas generadas en un tiempo razonable (menos de 5 segundos por interacción).
+- **Usabilidad**: Interfaz gráfica intuitiva y fácil de usar para los usuarios finales.
+- **Validación del Modelo**: El modelo Llama 3.2:11b proporciona respuestas precisas y relevantes.
+
+## 7. Cronograma
+
+| Fase                     | Duración      | Actividades                                                   |
+|--------------------------|---------------|---------------------------------------------------------------|
+| **Semana 1-2**           | 2 semanas     | Configuración del entorno local y despliegue del modelo LLM.  |
+| **Semana 3-4**           | 2 semanas     | Desarrollo del flujo de trabajo de refinamiento con LangChain.|
+| **Semana 5-6**           | 2 semanas     | Implementación de la interfaz gráfica con LangFlow.           |
+| **Semana 7**             | 1 semana      | Pruebas, ajustes y validación de la POC.                      |
+
+## 8. Limitaciones
+
+- **Alcance Reducido**: La POC se enfoca únicamente en las funcionalidades básicas de refinamiento sin integraciones externas.
+- **Recursos Locales**: Dependencia total en la máquina local del desarrollador para la ejecución del modelo LLM.
+- **Interfaz Básica**: La interfaz gráfica desarrollada con LangFlow es sencilla, enfocada en la validación rápida.
+
+## 9. Consideraciones Futuras
+
+- **Integraciones Externas**: Conectar con Jira, Confluence y GitHub para automatizar la extracción y actualización de datos.
+- **Despliegue en la Nube**: Migrar el POC a entornos en la nube para escalabilidad y accesibilidad.
+- **Mejoras en la Interfaz**: Desarrollar una interfaz más robusta y personalizada basada en feedback de usuarios.
+- **Optimización del Modelo**: Ajustar y optimizar el modelo Llama 3.2:11b para mejorar la precisión y eficiencia.
+
+## 10. Riesgos y Mitigaciones
+
+| Riesgo                                    | Impacto       | Mitigación                                       |
+|-------------------------------------------|---------------|-------------------------------------------------|
+| **Limitaciones de Hardware**             | Alto          | Validar compatibilidad y optimizar uso de recursos.|
+| **Complejidad en la Configuración del LLM**| Medio          | Documentar claramente los pasos de instalación.   |
+| **Tiempo de Desarrollo**                  | Medio          | Dividir tareas en sprints manejables.            |
+| **Rendimiento del Modelo**                | Medio          | Implementar técnicas de optimización y caching.  |
+| **Usabilidad de la Interfaz**             | Bajo           | Iterar sobre feedback temprano de usuarios.      |
+
+---
+
+Esta versión reducida del PRD está diseñada para guiar el desarrollo de una POC efectiva, enfocándose en validar las funcionalidades clave del Asistente de Refinamiento de Historias de Usuario utilizando recursos locales y tecnologías adecuadas para una rápida implementación y validación.
 
 **Prompt 2:**
 
+añade al prd una conexión a un sistema jira que levantaré de momento en local para la poc. De momento, puesto que es una poc, no añadas nada de docker ni de despliegues en la nube o similares
+
+**Answer 2:**
+
+# PRD: Asistente de Refinamiento de Historias de Usuario - Prueba de Concepto
+
+## 1. Objetivo
+
+Desarrollar una **Prueba de Concepto (POC)** para validar la viabilidad del **Asistente de Refinamiento de Historias de Usuario** utilizando un modelo LLM con capacidades de visión, aprovechando los recursos locales del desarrollador.
+
+## 2. Alcance
+
+La POC se centrará en:
+
+- Implementación de un flujo de refinamiento básico de historias de usuario en tres pasos.
+- Integración con un modelo LLM local (**Llama 3.2:11b**) con capacidades de visión.
+- Desarrollo de una interfaz gráfica sencilla utilizando **LangFlow**.
+- Conexión a un sistema Jira local para la gestión de historias de usuario.
+- Evaluación de la efectividad del modelo y la facilidad de uso de la interfaz.
+
+**Fuera del Alcance:**
+
+- Integraciones con sistemas externos en la nube como Confluence o GitHub.
+- Funcionalidades avanzadas de gestión de estado y persistencia.
+- Despliegue en entornos de producción o en la nube.
+
+## 3. Características y Funcionalidades
+
+### 3.1. Proceso de Refinamiento
+
+Implementar un flujo de trabajo en tres pasos secuenciales, cada uno requiriendo confirmación del usuario para avanzar:
+
+1. **Mejora de Definición**
+   - Refinar la descripción de la historia de usuario.
+   - Sugerencias para mejorar la claridad y completitud.
+
+2. **Identificación de Casos Esquinas**
+   - Identificar posibles escenarios límite o riesgos.
+   - Documentar casos de prueba adicionales.
+
+3. **Estrategia de Testing**
+   - Proponer estrategias de pruebas basadas en la historia refinada.
+   - Recomendaciones de tipos de tests necesarios.
+
+### 3.2. Integración con Modelo LLM
+
+- **Modelo Utilizado**: Llama 3.2:11b con capacidades de visión.
+- **Ejecución Local**: Aprovechar la potencia de la máquina local (RTX 4090, AMD 7800X3D, 64GB DDR5) para correr el modelo sin problemas.
+- **Framework**: Utilizar **LangChain** para gestionar la interacción con el modelo LLM.
+
+### 3.3. Interfaz Gráfica
+
+- **Herramienta**: **LangFlow**
+- **Características**:
+  - Interfaz intuitiva para ingresar y visualizar historias de usuario.
+  - Visualización de las recomendaciones generadas por el asistente.
+  - Facilitar iteraciones rápidas durante la POC.
+
+### 3.4. Integración con Jira Local
+
+- **Sistema Jira**: Instalación local de Jira para gestión de historias de usuario.
+- **Conector Jira**:
+  - **Funcionalidades**:
+    - Recuperación de historias de usuario desde Jira local.
+    - Sincronización básica de estados de historias.
+    - Acceso a detalles específicos de cada historia (título, descripción, criterios de aceptación).
+  - **Tecnologías**:
+    - Utilizar la API REST de Jira para interacción.
+    - Librería `jira` para facilitar las llamadas a la API desde Python.
+  - **Configuración Inicial**:
+    - Configuración de las credenciales de acceso a Jira local.
+    - Definición de endpoints y parámetros necesarios para la comunicación.
+
+## 4. Stack Tecnológico
+
+- **Lenguaje de Programación**: Python 3.11
+- **LLM**: Llama 3.2:11b (ejecutado localmente)
+- **Frameworks**:
+  - **LangChain**: Gestión de flujos de trabajo y prompts.
+  - **LangFlow**: Desarrollo de la interfaz gráfica.
+- **Entorno de Desarrollo**:
+  - **Poetry**: Gestión de dependencias y entornos virtuales.
+- **Herramientas Adicionales**:
+  - **Jira Local**: Instalación local para gestión de historias de usuario.
+  - **Librería `jira`**: Interacción con la API de Jira desde Python.
+
+## 5. Infraestructura y Despliegue
+
+### 5.1. Configuración del Entorno Local
+
+- **Hardware**:
+  - **GPU**: NVIDIA RTX 4090
+  - **CPU**: AMD Ryzen 7 7800X3D
+  - **Memoria**: 64GB DDR5
+- **Software**:
+  - **Sistema Operativo**: Preferiblemente Linux para mejor compatibilidad.
+  - **Poetry**: Instalación para gestión de dependencias.
+  - **LangChain & LangFlow**: Instalación a través de Poetry.
+  - **Jira Server**: Instalación y configuración local según documentación oficial.
+
+### 5.2. Instalación y Configuración
+
+1. **Clonar el Repositorio**
+    ```bash
+    git clone https://github.com/rgarciademarina/AI4Devs-finalproject-RGM.git
+    cd AI4Devs-finalproject-RGM
+    ```
+
+2. **Configurar el Entorno Virtual**
+    ```bash
+    poetry install
+    poetry shell
+    ```
+
+3. **Configurar Jira Local**
+    - **Descargar e Instalar Jira Server** desde [Atlassian](https://www.atlassian.com/software/jira/download).
+    - **Configurar el acceso a la API**:
+      - Crear una API Token si es necesario.
+      - Definir los permisos adecuados para la aplicación.
+    - **Actualizar la configuración del conector en el proyecto** con las credenciales y URLs locales.
+
+4. **Ejecutar el Modelo LLM Localmente**
+    ```bash
+    # Asumiendo que tienes los pesos del modelo descargados
+    python src/llm/run_model.py --model llama-3.2-11b
+    ```
+
+5. **Desarrollar la Interfaz con LangFlow**
+    ```bash
+    langflow run src/ui/app.py
+    ```
+
+## 6. Métricas de Éxito
+
+- **Funcionalidad**: El asistente puede procesar historias de usuario y proporcionar mejoras, identificar casos esquina y sugerir estrategias de testing.
+- **Rendimiento**: Respuestas generadas en un tiempo razonable (menos de 5 segundos por interacción).
+- **Usabilidad**: Interfaz gráfica intuitiva y fácil de usar para los usuarios finales.
+- **Integración con Jira**: Capacidad de recuperar y sincronizar historias de usuario desde Jira local.
+- **Validación del Modelo**: El modelo Llama 3.2:11b proporciona respuestas precisas y relevantes.
+
+## 7. Cronograma
+
+| Fase                     | Duración      | Actividades                                                   |
+|--------------------------|---------------|---------------------------------------------------------------|
+| **Semana 1-2**           | 2 semanas     | Configuración del entorno local y despliegue del modelo LLM.  |
+| **Semana 3-4**           | 2 semanas     | Configuración e integración con Jira local.                   |
+| **Semana 5-6**           | 2 semanas     | Desarrollo del flujo de trabajo de refinamiento con LangChain.|
+| **Semana 7-8**           | 2 semanas     | Implementación de la interfaz gráfica con LangFlow.           |
+| **Semana 9**             | 1 semana      | Pruebas, ajustes y validación de la POC.                      |
+
+## 8. Limitaciones
+
+- **Alcance Reducido**: La POC se enfoca únicamente en las funcionalidades básicas de refinamiento sin integraciones externas en la nube.
+- **Recursos Locales**: Dependencia total en la máquina local del desarrollador para la ejecución del modelo LLM y Jira.
+- **Interfaz Básica**: La interfaz gráfica desarrollada con LangFlow es sencilla, enfocada en la validación rápida.
+- **Jira Local**: Limitada a la funcionalidad básica de Jira, sin explorar todas las capacidades de la API.
+
+## 9. Consideraciones Futuras
+
+- **Integraciones Externas**: Conectar con Confluence y GitHub para automatizar la extracción y actualización de datos.
+- **Despliegue en la Nube**: Migrar la POC a entornos en la nube para escalabilidad y accesibilidad.
+- **Mejoras en la Interfaz**: Desarrollar una interfaz más robusta y personalizada basada en feedback de usuarios.
+- **Optimización del Modelo**: Ajustar y optimizar el modelo Llama 3.2:11b para mejorar la precisión y eficiencia.
+- **Automatización de Jira**: Implementar funcionalidades avanzadas de sincronización y automatización con Jira.
+
+## 10. Riesgos y Mitigaciones
+
+| Riesgo                                    | Impacto       | Mitigación                                       |
+|-------------------------------------------|---------------|-------------------------------------------------|
+| **Limitaciones de Hardware**             | Alto          | Validar compatibilidad y optimizar uso de recursos.|
+| **Complejidad en la Configuración de Jira Local** | Medio      | Documentar claramente los pasos de instalación.   |
+| **Tiempo de Desarrollo**                  | Medio         | Dividir tareas en sprints manejables.            |
+| **Rendimiento del Modelo**                | Medio         | Implementar técnicas de optimización y caching.  |
+| **Usabilidad de la Interfaz**             | Bajo          | Iterar sobre feedback temprano de usuarios.      |
+
+---
+
+Esta versión reducida del PRD está diseñada para guiar el desarrollo de una **Prueba de Concepto (POC)** efectiva, enfocándose en validar las funcionalidades clave del **Asistente de Refinamiento de Historias de Usuario** utilizando recursos locales y tecnologías adecuadas para una rápida implementación y validación. La integración con un sistema Jira local permitirá gestionar y sincronizar las historias de usuario de manera eficiente sin depender de servicios en la nube.
+
 **Prompt 3:**
+
+elimina el cronograma
+
+**Answer 3:**
+
+Claro, a continuación te presento la versión actualizada del PRD para la Prueba de Concepto del Asistente de Refinamiento de Historias de Usuario, eliminando la sección del Cronograma.
+
+# PRD: Asistente de Refinamiento de Historias de Usuario - Prueba de Concepto
+
+## 1. Objetivo
+
+Desarrollar una **Prueba de Concepto (POC)** para validar la viabilidad del **Asistente de Refinamiento de Historias de Usuario** utilizando un modelo LLM con capacidades de visión, aprovechando los recursos locales del desarrollador.
+
+## 2. Alcance
+
+La POC se centrará en:
+
+- Implementación de un flujo de refinamiento básico de historias de usuario en tres pasos.
+- Integración con un modelo LLM local (**Llama 3.2:11b**) con capacidades de visión.
+- Desarrollo de una interfaz gráfica sencilla utilizando **LangFlow**.
+- Conexión a un sistema Jira local para la gestión de historias de usuario.
+- Evaluación de la efectividad del modelo y la facilidad de uso de la interfaz.
+
+**Fuera del Alcance:**
+
+- Integraciones con sistemas externos en la nube como Confluence o GitHub.
+- Funcionalidades avanzadas de gestión de estado y persistencia.
+- Despliegue en entornos de producción o en la nube.
+
+## 3. Características y Funcionalidades
+
+### 3.1. Proceso de Refinamiento
+
+Implementar un flujo de trabajo en tres pasos secuenciales, cada uno requiriendo confirmación del usuario para avanzar:
+
+1. **Mejora de Definición**
+   - Refinar la descripción de la historia de usuario.
+   - Sugerencias para mejorar la claridad y completitud.
+
+2. **Identificación de Casos Esquinas**
+   - Identificar posibles escenarios límite o riesgos.
+   - Documentar casos de prueba adicionales.
+
+3. **Estrategia de Testing**
+   - Proponer estrategias de pruebas basadas en la historia refinada.
+   - Recomendaciones de tipos de tests necesarios.
+
+### 3.2. Integración con Modelo LLM
+
+- **Modelo Utilizado**: Llama 3.2:11b con capacidades de visión.
+- **Ejecución Local**: Aprovechar la potencia de la máquina local (RTX 4090, AMD 7800X3D, 64GB DDR5) para correr el modelo sin problemas.
+- **Framework**: Utilizar **LangChain** para gestionar la interacción con el modelo LLM.
+
+### 3.3. Interfaz Gráfica
+
+- **Herramienta**: **LangFlow**
+- **Características**:
+  - Interfaz intuitiva para ingresar y visualizar historias de usuario.
+  - Visualización de las recomendaciones generadas por el asistente.
+  - Facilitar iteraciones rápidas durante la POC.
+
+### 3.4. Integración con Jira Local
+
+- **Sistema Jira**: Instalación local de Jira para gestión de historias de usuario.
+- **Conector Jira**:
+  - **Funcionalidades**:
+    - Recuperación de historias de usuario desde Jira local.
+    - Sincronización básica de estados de historias.
+    - Acceso a detalles específicos de cada historia (título, descripción, criterios de aceptación).
+  - **Tecnologías**:
+    - Utilizar la API REST de Jira para interacción.
+    - Librería `jira` para facilitar las llamadas a la API desde Python.
+  - **Configuración Inicial**:
+    - Configuración de las credenciales de acceso a Jira local.
+    - Definición de endpoints y parámetros necesarios para la comunicación.
+
+## 4. Stack Tecnológico
+
+- **Lenguaje de Programación**: Python 3.11
+- **LLM**: Llama 3.2:11b (ejecutado localmente)
+- **Frameworks**:
+  - **LangChain**: Gestión de flujos de trabajo y prompts.
+  - **LangFlow**: Desarrollo de la interfaz gráfica.
+- **Entorno de Desarrollo**:
+  - **Poetry**: Gestión de dependencias y entornos virtuales.
+- **Herramientas Adicionales**:
+  - **Jira Local**: Instalación local para gestión de historias de usuario.
+  - **Librería `jira`**: Interacción con la API de Jira desde Python.
+
+## 5. Infraestructura y Despliegue
+
+### 5.1. Configuración del Entorno Local
+
+- **Hardware**:
+  - **GPU**: NVIDIA RTX 4090
+  - **CPU**: AMD Ryzen 7 7800X3D
+  - **Memoria**: 64GB DDR5
+- **Software**:
+  - **Sistema Operativo**: Preferiblemente Linux para mejor compatibilidad.
+  - **Poetry**: Instalación para gestión de dependencias.
+  - **LangChain & LangFlow**: Instalación a través de Poetry.
+  - **Jira Server**: Instalación y configuración local según documentación oficial.
+
+### 5.2. Instalación y Configuración
+
+1. **Clonar el Repositorio**
+    ```bash
+    git clone https://github.com/rgarciademarina/AI4Devs-finalproject-RGM.git
+    cd AI4Devs-finalproject-RGM
+    ```
+
+2. **Configurar el Entorno Virtual**
+    ```bash
+    poetry install
+    poetry shell
+    ```
+
+3. **Configurar Jira Local**
+    - **Descargar e Instalar Jira Server** desde [Atlassian](https://www.atlassian.com/software/jira/download).
+    - **Configurar el acceso a la API**:
+      - Crear una API Token si es necesario.
+      - Definir los permisos adecuados para la aplicación.
+    - **Actualizar la configuración del conector en el proyecto** con las credenciales y URLs locales.
+
+4. **Ejecutar el Modelo LLM Localmente**
+    ```bash
+    # Asumiendo que tienes los pesos del modelo descargados
+    python src/llm/run_model.py --model llama-3.2-11b
+    ```
+
+5. **Desarrollar la Interfaz con LangFlow**
+    ```bash
+    langflow run src/ui/app.py
+    ```
+
+## 6. Métricas de Éxito
+
+- **Funcionalidad**: El asistente puede procesar historias de usuario y proporcionar mejoras, identificar casos esquina y sugerir estrategias de testing.
+- **Rendimiento**: Respuestas generadas en un tiempo razonable (menos de 5 segundos por interacción).
+- **Usabilidad**: Interfaz gráfica intuitiva y fácil de usar para los usuarios finales.
+- **Integración con Jira**: Capacidad de recuperar y sincronizar historias de usuario desde Jira local.
+- **Validación del Modelo**: El modelo Llama 3.2:11b proporciona respuestas precisas y relevantes.
+
+## 7. Limitaciones
+
+- **Alcance Reducido**: La POC se enfoca únicamente en las funcionalidades básicas de refinamiento sin integraciones externas en la nube.
+- **Recursos Locales**: Dependencia total en la máquina local del desarrollador para la ejecución del modelo LLM y Jira.
+- **Interfaz Básica**: La interfaz gráfica desarrollada con LangFlow es sencilla, enfocada en la validación rápida.
+- **Jira Local**: Limitada a la funcionalidad básica de Jira, sin explorar todas las capacidades de la API.
+
+## 8. Consideraciones Futuras
+
+- **Integraciones Externas**: Conectar con Confluence y GitHub para automatizar la extracción y actualización de datos.
+- **Despliegue en la Nube**: Migrar la POC a entornos en la nube para escalabilidad y accesibilidad.
+- **Mejoras en la Interfaz**: Desarrollar una interfaz más robusta y personalizada basada en feedback de usuarios.
+- **Optimización del Modelo**: Ajustar y optimizar el modelo Llama 3.2:11b para mejorar la precisión y eficiencia.
+- **Automatización de Jira**: Implementar funcionalidades avanzadas de sincronización y automatización con Jira.
+
+## 9. Riesgos y Mitigaciones
+
+| Riesgo                                    | Impacto       | Mitigación                                       |
+|-------------------------------------------|---------------|-------------------------------------------------|
+| **Limitaciones de Hardware**             | Alto          | Validar compatibilidad y optimizar uso de recursos.|
+| **Complejidad en la Configuración de Jira Local** | Medio      | Documentar claramente los pasos de instalación.   |
+| **Tiempo de Desarrollo**                  | Medio         | Dividir tareas en sprints manejables.            |
+| **Rendimiento del Modelo**                | Medio         | Implementar técnicas de optimización y caching.  |
+| **Usabilidad de la Interfaz**             | Bajo          | Iterar sobre feedback temprano de usuarios.      |
+
+---
+
+Esta versión reducida del PRD está diseñada para guiar el desarrollo de una **Prueba de Concepto (POC)** efectiva, enfocándose en validar las funcionalidades clave del **Asistente de Refinamiento de Historias de Usuario** utilizando recursos locales y tecnologías adecuadas para una rápida implementación y validación. La integración con un sistema Jira local permitirá gestionar y sincronizar las historias de usuario de manera eficiente sin depender de servicios en la nube.
+
+**Prompt 4:**
+
+Vale, ahora con este nuevo PRD ayúdame a actualizar el archivo @readme.md . Tenemos que actualizar todo el texto prestando especial atención en el diagrama de arquitectura, componentes, estructura de ficheros, etc
+
+**Answer 4:**
+
+# Refinador de Historias de Usuario
+
+## Índice
+
+0. [Ficha del proyecto](#0-ficha-del-proyecto)
+1. [Descripción general del producto](#1-descripción-general-del-producto)
+2. [Arquitectura del sistema](#2-arquitectura-del-sistema)
+3. [Modelo de datos](#3-modelo-de-datos)
+4. [Especificación de la API](#4-especificación-de-la-api)
+5. [Historias de usuario](#5-historias-de-usuario)
+6. [Tickets de trabajo](#6-tickets-de-trabajo)
+7. [Pull requests](#7-pull-requests)
+
+---
+
+## 0. Ficha del proyecto
+
+### **0.1. Tu nombre completo:**
+
+Raúl García de Marina Maroto
+
+### **0.2. Nombre del proyecto:**
+
+Refinador de Historias de Usuario
+
+### **0.3. Descripción breve del proyecto:**
+
+Un asistente que usará un LLM y un sistema RAG para ayudar con el proceso de refinamiento de historias de usuario de un equipo de desarrollo.
+
+### **0.4. URL del proyecto:**
+
+[https://github.com/rgarciademarina/AI4Devs-finalproject-RGM](https://github.com/rgarciademarina/AI4Devs-finalproject-RGM)
+
+---
+
+## 1. Descripción general del producto
+
+> Describe en detalle los siguientes aspectos del producto:
+
+El Asistente de Refinamiento de Historias de Usuario es una herramienta basada en IA que asiste a los equipos de desarrollo en la mejora de sus historias de usuario a través de un proceso guiado de tres pasos. Utiliza un modelo LLM (Llama 3.2:11b) combinado con un sistema RAG (Retrieval-Augmented Generation) para proporcionar recomendaciones contextualizadas basadas en el historial del proyecto.
+
+### **1.1. Visión General**
+
+El asistente facilita la creación y refinamiento de historias de usuario, asegurando claridad, completitud y calidad en la documentación. A través de su integración con Jira local, permite una gestión eficiente y sincronizada de las historias, detectando casos esquina y sugiriendo estrategias de testing adecuadas.
+
+### **1.2. Objetivo del Producto**
+
+Mejorar la calidad y completitud de las historias de usuario mediante:
+
+- Refinamiento de definiciones y criterios de aceptación
+- Identificación proactiva de casos esquina
+- Recomendaciones comprensivas de estrategias de testing
+
+### **1.3. Diseño y experiencia de usuario:**
+
+Proporciona imágenes y/o videotutorial mostrando la experiencia del usuario desde que aterriza en la aplicación, pasando por todas las funcionalidades principales.
+
+TBD
+
+### **1.4. Instrucciones de instalación:**
+
+Documenta de manera precisa las instrucciones para instalar y poner en marcha el proyecto en local (librerías, backend, frontend, servidor, base de datos, migraciones y semillas de datos, etc.)
+
+TBD
+
+## 2. Arquitectura del Sistema
+
+### **2.1. Diagrama de arquitectura:**
+
+Usa el formato que consideres más adecuado para representar los componentes principales de la aplicación y las tecnologías utilizadas. Explica si sigue algún patrón predefinido, justifica por qué se ha elegido esta arquitectura, y destaca los beneficios principales que aportan al proyecto y justifican su uso, así como sacrificios o déficits que implica.
+
+**Prompt 5:**
+
+De momento para la poc no tendremos un sistema RAG, tenlo en cuenta para actualizar el archivo 
+
+**Answer 5:**
+
+# Refinador de Historias de Usuario
+
+## Índice
+
+0. [Ficha del proyecto](#0-ficha-del-proyecto)
+1. [Descripción general del producto](#1-descripción-general-del-producto)
+2. [Arquitectura del sistema](#2-arquitectura-del-sistema)
+3. [Modelo de datos](#3-modelo-de-datos)
+4. [Especificación de la API](#4-especificación-de-la-api)
+5. [Historias de usuario](#5-historias-de-usuario)
+6. [Tickets de trabajo](#6-tickets-de-trabajo)
+7. [Pull requests](#7-pull-requests)
+
+---
+
+## 0. Ficha del proyecto
+
+### **0.1. Tu nombre completo:**
+
+Raúl García de Marina Maroto
+
+### **0.2. Nombre del proyecto:**
+
+Refinador de Historias de Usuario
+
+### **0.3. Descripción breve del proyecto:**
+
+Un asistente que usará un LLM para ayudar con el proceso de refinamiento de historias de usuario de un equipo de desarrollo.
+
+### **0.4. URL del proyecto:**
+
+[https://github.com/rgarciademarina/AI4Devs-finalproject-RGM](https://github.com/rgarciademarina/AI4Devs-finalproject-RGM)
+
+---
+
+## 1. Descripción general del producto
+
+> Describe en detalle los siguientes aspectos del producto:
+
+El Asistente de Refinamiento de Historias de Usuario es una herramienta basada en IA que asiste a los equipos de desarrollo en la mejora de sus historias de usuario a través de un proceso guiado de tres pasos. Utiliza un modelo LLM (Llama 3.2:11b) para proporcionar recomendaciones contextualizadas basadas en el historial del proyecto.
+
+### **1.1. Visión General**
+
+El asistente facilita la creación y refinamiento de historias de usuario, asegurando claridad, completitud y calidad en la documentación. A través de su integración con Jira local, permite una gestión eficiente y sincronizada de las historias, detectando casos esquina y sugiriendo estrategias de testing adecuadas.
+
+### **1.2. Objetivo del Producto**
+
+Mejorar la calidad y completitud de las historias de usuario mediante:
+
+- Refinamiento de definiciones y criterios de aceptación
+- Identificación proactiva de casos esquina
+- Recomendaciones comprensivas de estrategias de testing
+
+### **1.3. Diseño y experiencia de usuario:**
+
+Proporciona imágenes y/o videotutorial mostrando la experiencia del usuario desde que aterriza en la aplicación, pasando por todas las funcionalidades principales.
+
+TBD
+
+### **1.4. Instrucciones de instalación:**
+
+Documenta de manera precisa las instrucciones para instalar y poner en marcha el proyecto en local (librerías, backend, frontend, servidor, base de datos, migraciones y semillas de datos, etc.)
+
+TBD
+
+## 2. Arquitectura del Sistema
+
+### **2.1. Diagrama de arquitectura:**
+
+Usa el formato que consideres más adecuado para representar los componentes principales de la aplicación y las tecnologías utilizadas. Explica si sigue algún patrón predefinido, justifica por qué se ha elegido esta arquitectura, y destaca los beneficios principales que aportan al proyecto y justifican su uso, así como sacrificios o déficits que implica.
+
+
+**Prompt 6:**
+
+En tus respuestes no modifiques el índice ni los títulos, solo quiero que lo actualices. También veo que no diste una versión actualizada del sistema de ficheros.
+
+**Answer 6:**
+
+# Refinador de Historias de Usuario
+
+## Índice
+
+0. [Ficha del proyecto](#0-ficha-del-proyecto)
+1. [Descripción general del producto](#1-descripción-general-del-producto)
+2. [Arquitectura del sistema](#2-arquitectura-del-sistema)
+3. [Modelo de datos](#3-modelo-de-datos)
+4. [Especificación de la API](#4-especificación-de-la-api)
+5. [Historias de usuario](#5-historias-de-usuario)
+6. [Tickets de trabajo](#6-tickets-de-trabajo)
+7. [Pull requests](#7-pull-requests)
+
+---
+
+## 0. Ficha del proyecto
+
+### **0.1. Tu nombre completo:**
+
+Raúl García de Marina Maroto
+
+### **0.2. Nombre del proyecto:**
+
+Refinador de Historias de Usuario
+
+### **0.3. Descripción breve del proyecto:**
+
+Un asistente que usará un LLM para ayudar con el proceso de refinamiento de historias de usuario de un equipo de desarrollo.
+
+### **0.4. URL del proyecto:**
+
+[https://github.com/rgarciademarina/AI4Devs-finalproject-RGM](https://github.com/rgarciademarina/AI4Devs-finalproject-RGM)
+
+---
+
+## 1. Descripción general del producto
+
+> Describe en detalle los siguientes aspectos del producto:
+
+El Asistente de Refinamiento de Historias de Usuario es una herramienta basada en IA que asiste a los equipos de desarrollo en la mejora de sus historias de usuario a través de un proceso guiado de tres pasos. Utiliza un modelo LLM (Llama 3.2:11b) para proporcionar recomendaciones contextualizadas basadas en el historial del proyecto.
+
+### **1.1. Visión General**
+
+El asistente facilita la creación y refinamiento de historias de usuario, asegurando claridad, completitud y calidad en la documentación. A través de su integración con Jira local, permite una gestión eficiente y sincronizada de las historias, detectando casos esquina y sugiriendo estrategias de testing adecuadas.
+
+### **1.2. Objetivo del Producto**
+
+Mejorar la calidad y completitud de las historias de usuario mediante:
+
+- Refinamiento de definiciones y criterios de aceptación
+- Identificación proactiva de casos esquina
+- Recomendaciones comprensivas de estrategias de testing
+
+### **1.3. Diseño y experiencia de usuario:**
+
+Proporciona imágenes y/o videotutorial mostrando la experiencia del usuario desde que aterriza en la aplicación, pasando por todas las funcionalidades principales.
+
+TBD
+
+### **1.4. Instrucciones de instalación:**
+
+Documenta de manera precisa las instrucciones para instalar y poner en marcha el proyecto en local (librerías, backend, frontend, servidor, base de datos, migraciones y semillas de datos, etc.)
+
+TBD
+
+## 2. Arquitectura del Sistema
+
+### **2.1. Diagrama de arquitectura:**
+
+Usa el formato que consideres más adecuado para representar los componentes principales de la aplicación y las tecnologías utilizadas. Explica si sigue algún patrón predefinido, justifica por qué se ha elegido esta arquitectura, y destaca los beneficios principales que aportan al proyecto y justifican su uso, así como sacrificios o déficits que implica.
